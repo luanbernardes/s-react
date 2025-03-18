@@ -1,3 +1,22 @@
+# How to run
+- nodejs `23.10.0`
+- pnpm `9.15.9`
+
+## install dependencies
+using `ASDF`:
+- after install [ASDF](https://asdf-vm.com/guide/getting-started.html), nodejs and pnpm plugins, just run `asdf install`. Will have a node and pnpm in the correct version.
+- `pnpm install` to install the dependencies
+
+Without `ASDF`:
+- install nodejs `23.10.0` and pnpm `9.15.9`.
+
+## run the project
+`pnpm run dev` to run the project
+
+---
+
+# Challenge
+
 ## Star Wars Character App - Take-Home React Assignment
 
 This React test evaluates your skills in UI development, API integration, testing, and optionally, authentication mocking. You have 7 days to complete the assignment and submit it to a public Github repository.
