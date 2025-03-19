@@ -1,7 +1,6 @@
 import { StarWarsService } from '../star-wars';
 import { AxiosHttpClient } from '@/infra/http/axios-http-client';
 import { HttpResponse } from '@/data/protocols/http';
-import { vi } from 'vitest';
 
 vi.mock('@/infra/http/axios-http-client');
 

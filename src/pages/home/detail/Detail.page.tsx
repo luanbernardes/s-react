@@ -43,7 +43,7 @@ const DetailPage = ({ handleClose, people }: DetailPageProps) => {
                   <li>
                     <Typography variant="body1" component="div">
                       <strong>Height: </strong>
-                      {`${people.height / 100}m`}
+                      {`${Number(people.height) / 100}m`}
                     </Typography>
                   </li>
                   <li>

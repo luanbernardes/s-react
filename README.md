@@ -13,6 +13,14 @@ using `ASDF`:
 `pnpm run dev` to run the project
 
 ---
+# Todo list
+List of Todos to be done in the project
+- [ ] add more E2E tests
+- [ ] add more unit tests
+- [ ] make filters work (how?)
+
+
+---
 
 # Challenge
 

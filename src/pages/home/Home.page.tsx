@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { usePeople } from './hooks';
 import CardComponent from './Card.component';
 import { LoadingComponent } from './Loading.component';
-import { Search } from '@mui/icons-material';
+import { FilterComponent } from './filter/Filter.component';
+import { CheckBox, Search } from '@mui/icons-material';
 import {
   Box,
-  Checkbox,
+  Button,
   Container,
   FormControl,
   FormControlLabel,
@@ -20,10 +21,15 @@ import { People } from '@/types/swapi';
 
 const HomePage = () => {
   const [filterPagination, setFilterPagination] = useState(1);
-  const [filterPeople, setFilterPeople] = useState('');
+  const [filterCharacterName, setFilterCharacterName] = useState('');
+  const [filterHomeworlds, setFilterHomeworlds] = useState<number[]>([]);
   const [openDetails, setOpenDetails] = useState(false);
   const [peopleSelected, setPeopleSelected] = useState<People>();
-  const { data, pageSize, loading, error } = usePeople(filterPagination, filterPeople);
+  const { data, pageSize, loading, error } = usePeople(
+    filterPagination,
+    filterCharacterName,
+    filterHomeworlds
+  );
   const [timer, setTimer] = useState<number | null>(null);
 
   const handleClickOpen = (people: People) => {
@@ -37,7 +43,12 @@ const HomePage = () => {
   function paginationChange(event: React.ChangeEvent<unknown>, value: number) {
     setFilterPagination(value);
   }
-  function findPeople(e: React.ChangeEvent<HTMLInputElement>) {
+  function findCharacter() {
+    setFilterPagination(1);
+    setFilterCharacterName(filterCharacterName);
+  }
+
+  function inputChange(e: React.ChangeEvent<HTMLInputElement>) {
     // debounce
     if (timer) {
       clearTimeout(timer);
@@ -46,39 +57,41 @@ const HomePage = () => {
     setTimer(
       window.setTimeout(() => {
         setFilterPagination(1);
-        setFilterPeople(e.target.value);
+        setFilterCharacterName(e.target.value);
       }, 500)
     );
   }
 
-  // function filtering(e: React.ChangeEvent<HTMLInputElement>) {
-  //   if (e.target.checked) {
-  //     setFilterPeople(e.target.value);
-  //   } else {
-  //     setFilterPeople('');
-  // }
+  function onChangeFilter(filters: number[]) {
+    setFilterHomeworlds(filters);
+  }
 
   return (
     <Container>
       <Box pt={2} pb={4}>
-        <FormControl>
+        <FormControl onSubmit={findCharacter}>
           <Paper
             component="form"
             sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
           >
             <InputBase
+              name={'filterCharacterName'}
               sx={{ ml: 1, flex: 1 }}
               placeholder="Search a Star Wars Character"
               inputProps={{ 'aria-label': 'search a Start Wars Character' }}
-              onChange={findPeople}
+              onChange={inputChange}
             />
-            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+            <IconButton
+              type="button"
+              sx={{ p: '10px' }}
+              aria-label="search"
+              onClick={findCharacter}
+            >
               <Search />
             </IconButton>
           </Paper>
-          Filters
-          <FormControlLabel control={<Checkbox />} label="Tatooine" onChange={filtering} />
-          Alderaan Coruscant Naboo Kashyyyk
+
+          <FilterComponent onChange={onChangeFilter} />
         </FormControl>
       </Box>
 

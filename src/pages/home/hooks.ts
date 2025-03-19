@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { GetPeopleResponse, SwapiService } from '@/services/swapi';
 import { HttpResponse } from '@/data/protocols/http';
 
-export const usePeople = (pagination?: number, search?: string) => {
+export const usePeople = (pagination?: number, search?: string, filterHomeworlds?: number[]) => {
   const [data, setData] = useState<HttpResponse<GetPeopleResponse> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,7 +24,6 @@ export const usePeople = (pagination?: number, search?: string) => {
 
     fetchData();
   }, [pagination, search]);
-  console.log({ data: data?.body });
 
   return {
     data: data?.body?.results,

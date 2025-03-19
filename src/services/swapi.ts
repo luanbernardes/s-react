@@ -11,6 +11,17 @@ export interface GetPeopleResponse {
   results: People[];
 }
 
+export interface GetAllResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: [
+    {
+      name: string;
+    }
+  ];
+}
+
 export class SwapiService {
   private httpClient: AxiosHttpClient;
 
@@ -22,9 +33,33 @@ export class SwapiService {
     const searchUrl = !pagination ? null : `?search=${search}&page=${pagination}`;
 
     const httpRequest: HttpRequest = {
-      url: `${baseUrl}/people${searchUrl}`,
+      url: `${baseUrl}/api/people${searchUrl}`,
       method: 'get'
     };
     return this.httpClient.request(httpRequest);
   }
+
+  // async getAllPlanets(): Promise<HttpResponse<GetAllResponse>> {
+  //   const httpRequest: HttpRequest = {
+  //     url: `${baseUrl}/api/planets/`,
+  //     method: 'get'
+  //   };
+  //   return this.httpClient.request(httpRequest);
+  // }
+  //
+  // async getAllStartships(): Promise<HttpResponse<GetAllResponse>> {
+  //   const httpRequest: HttpRequest = {
+  //     url: `${baseUrl}/api/starships/`,
+  //     method: 'get'
+  //   };
+  //   return this.httpClient.request(httpRequest);
+  // }
+  //
+  // async getAllSpecies(): Promise<HttpResponse<GetAllResponse>> {
+  //   const httpRequest: HttpRequest = {
+  //     url: `${baseUrl}/api/species/`,
+  //     method: 'get'
+  //   };
+  //   return this.httpClient.request(httpRequest);
+  // }
 }
