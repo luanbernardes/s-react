@@ -5,8 +5,10 @@ import { LoadingComponent } from './Loading.component';
 import { Search } from '@mui/icons-material';
 import {
   Box,
+  Checkbox,
   Container,
   FormControl,
+  FormControlLabel,
   Grid2,
   IconButton,
   InputBase,
@@ -49,6 +51,13 @@ const HomePage = () => {
     );
   }
 
+  // function filtering(e: React.ChangeEvent<HTMLInputElement>) {
+  //   if (e.target.checked) {
+  //     setFilterPeople(e.target.value);
+  //   } else {
+  //     setFilterPeople('');
+  // }
+
   return (
     <Container>
       <Box pt={2} pb={4}>
@@ -59,14 +68,17 @@ const HomePage = () => {
           >
             <InputBase
               sx={{ ml: 1, flex: 1 }}
-              placeholder="Search A Star Wars"
-              inputProps={{ 'aria-label': 'search a Start Wars' }}
+              placeholder="Search a Star Wars Character"
+              inputProps={{ 'aria-label': 'search a Start Wars Character' }}
               onChange={findPeople}
             />
             <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
               <Search />
             </IconButton>
           </Paper>
+          Filters
+          <FormControlLabel control={<Checkbox />} label="Tatooine" onChange={filtering} />
+          Alderaan Coruscant Naboo Kashyyyk
         </FormControl>
       </Box>
 

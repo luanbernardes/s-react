@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vitest/globals"],
     "target": "es2020",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
@@ -14,8 +15,12 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"]
-    }
+    },
   },
-  "include": ["src", "tests"],
+
+  "include": [
+    "src",
+    "tests"
+  ],
   "exclude": ["node_modules", "tests/e2e/cypress"]
 }
