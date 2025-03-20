@@ -6,11 +6,14 @@
 
 ## With ASDF
 using `ASDF`:
-- after install [ASDF](https://asdf-vm.com/guide/getting-started.html), nodejs and pnpm plugins, just run `asdf install`. Will have a node and pnpm in the correct version.
-- `pnpm install` to install the dependencies
+- after install [ASDF](https://asdf-vm.com/guide/getting-started.html), nodejs and npm plugins, just run `asdf install`. Will have a node and npm in the correct version.
+- `npm install` to install the dependencies
 
-## run the project
-`pnpm run dev` to run the project
+# Commands
+- To run project: `npm run dev`
+- To run tests(unit): `npm run test`
+- To run tests(E2E): `npm run test:e2e`
+
 
 ---
 # Todo list
