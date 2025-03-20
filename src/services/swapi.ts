@@ -25,6 +25,7 @@ export interface GetAllResponse {
 export class SwapiService {
   private httpClient: AxiosHttpClient;
 
+  // TODO - remove from here
   constructor() {
     this.httpClient = new AxiosHttpClient();
   }
@@ -39,6 +40,7 @@ export class SwapiService {
     return this.httpClient.request(httpRequest);
   }
 
+  // *** get planets to have filters
   // async getAllPlanets(): Promise<HttpResponse<GetAllResponse>> {
   //   const httpRequest: HttpRequest = {
   //     url: `${baseUrl}/api/planets/`,

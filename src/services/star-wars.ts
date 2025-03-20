@@ -15,6 +15,7 @@ export interface GetImageResponse {
 export class StarWarsService {
   private httpClient: AxiosHttpClient;
 
+  // TODO - remove from here
   constructor() {
     this.httpClient = new AxiosHttpClient();
   }

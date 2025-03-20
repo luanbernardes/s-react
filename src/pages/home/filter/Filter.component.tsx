@@ -76,7 +76,7 @@ export const FilterComponent = ({ onChange }: DetailPageProps) => {
                 transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom'
               }}
             >
-              <Paper width="100%" elevation={0}>
+              <Paper width="100%">
                 <FormGroup>
                   <Grid2 container spacing={1} py={1} px={2} width={'100vw'}>
                     {dataHomeworlds?.map((homeworld) => (
@@ -84,7 +84,7 @@ export const FilterComponent = ({ onChange }: DetailPageProps) => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              name={homeworld.id}
+                              name={String(homeworld.id)}
                               checked={selectedHomeworlds.includes(homeworld.id)}
                               onChange={handleCheckboxChange}
                             />
