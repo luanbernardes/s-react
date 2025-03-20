@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { GetPeopleResponse, SwapiService } from '@/services/swapi';
 import { HttpResponse } from '@/data/protocols/http';
 
-export const usePeople = (pagination?: number, search?: string, filterHomeworlds?: number[]) => {
+export const usePeople = (pagination?: number, search?: string) => {
   const [data, setData] = useState<HttpResponse<GetPeopleResponse> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

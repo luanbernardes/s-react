@@ -3,13 +3,11 @@ import { usePeople } from './hooks';
 import CardComponent from './Card.component';
 import { LoadingComponent } from './Loading.component';
 import { FilterComponent } from './filter/Filter.component';
-import { CheckBox, Search } from '@mui/icons-material';
+import { Search } from '@mui/icons-material';
 import {
   Box,
-  Button,
   Container,
   FormControl,
-  FormControlLabel,
   Grid2,
   IconButton,
   InputBase,
@@ -25,11 +23,7 @@ const HomePage = () => {
   const [filterHomeworlds, setFilterHomeworlds] = useState<number[]>([]);
   const [openDetails, setOpenDetails] = useState(false);
   const [peopleSelected, setPeopleSelected] = useState<People>();
-  const { data, pageSize, loading, error } = usePeople(
-    filterPagination,
-    filterCharacterName,
-    filterHomeworlds
-  );
+  const { data, pageSize, loading, error } = usePeople(filterPagination, filterCharacterName);
   const [timer, setTimer] = useState<number | null>(null);
 
   const handleClickOpen = (people: People) => {
@@ -66,57 +60,69 @@ const HomePage = () => {
     setFilterHomeworlds(filters);
   }
 
+  console.log({ filterHomeworlds });
+
   return (
-    <Container>
-      <Box pt={2} pb={4}>
-        <FormControl onSubmit={findCharacter}>
-          <Paper
-            component="form"
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
-          >
-            <InputBase
-              name={'filterCharacterName'}
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="Search a Star Wars Character"
-              inputProps={{ 'aria-label': 'search a Start Wars Character' }}
-              onChange={inputChange}
-            />
-            <IconButton
-              type="button"
-              sx={{ p: '10px' }}
-              aria-label="search"
-              onClick={findCharacter}
-            >
-              <Search />
-            </IconButton>
-          </Paper>
+    <>
+      <Grid2 container spacing={3} direction={'column'} height={'100vh'}>
+        <Grid2>
+          <Container>
+            <Box pt={2} pb={4}>
+              <FormControl onSubmit={findCharacter}>
+                <Paper
+                  component="form"
+                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+                >
+                  <InputBase
+                    name={'filterCharacterName'}
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Search a Star Wars Character"
+                    inputProps={{ 'aria-label': 'search a Start Wars Character' }}
+                    onChange={inputChange}
+                  />
+                  <IconButton
+                    type="button"
+                    sx={{ p: '10px' }}
+                    aria-label="search"
+                    onClick={findCharacter}
+                  >
+                    <Search />
+                  </IconButton>
+                </Paper>
 
-          <FilterComponent onChange={onChangeFilter} />
-        </FormControl>
-      </Box>
+                <FilterComponent onChange={onChangeFilter} />
+              </FormControl>
+            </Box>
+          </Container>
+        </Grid2>
 
-      <Box minHeight={500}>
-        {loading && <LoadingComponent />}
+        <Grid2 flexGrow={1}>
+          <Container>
+            {loading && <LoadingComponent />}
 
-        {error && <div>Error!</div>}
+            {error && <div>Error!</div>}
 
-        {!loading && !error && data && (
-          <Grid2 container spacing={2} pb={3}>
-            {data.map((people) => (
-              <Grid2 size={6} key={people.url}>
-                <CardComponent name={people.name} onClick={() => handleClickOpen(people)} />
+            {!loading && !error && data && (
+              <Grid2 container spacing={2} pb={3}>
+                {data.map((people) => (
+                  <Grid2 size={6} key={people.url}>
+                    <CardComponent name={people.name} onClick={() => handleClickOpen(people)} />
+                  </Grid2>
+                ))}
               </Grid2>
-            ))}
-          </Grid2>
-        )}
-      </Box>
+            )}
+          </Container>
+        </Grid2>
 
-      <Grid2 container justifyContent={'center'} pb={3}>
-        <Pagination count={pageSize} color="primary" onChange={paginationChange} />
+        <Grid2>
+          <Grid2 container justifyContent={'center'} pb={3}>
+            <Pagination count={pageSize} color="primary" onChange={paginationChange} />
+          </Grid2>
+        </Grid2>
       </Grid2>
 
       {openDetails && <DetailPage people={peopleSelected} handleClose={handleClose} />}
-    </Container>
+    </>
   );
 };
 

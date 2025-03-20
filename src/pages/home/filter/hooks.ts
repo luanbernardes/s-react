@@ -1,6 +1,3 @@
-import { useState, useEffect } from 'react';
-import { SwapiService } from '@/services/swapi';
-
 export const useGelAllFilters = () => {
   // const [dataHomeworlds, setDataHomeworld] = useState<any>();
   // const [dataStarships, setDataStarships] = useState<any>();
