@@ -6,23 +6,39 @@ test.describe('Home Page', () => {
     await page.goto('http://localhost:5173');
   });
 
-  test('should loading character first list and click on "Luke Skywalker" to show a modal with details', async ({
-    page
-  }) => {
-    const inputBase = page.locator('input[placeholder="Search a Star Wars Character"]');
-    // loading results
+  test('Main experience', async ({ page }) => {
+    // loading correct results
     await page.waitForSelector('button:has-text("Darth Vader")');
+    await page.waitForSelector('button:has-text("Obi-Wan Kenobi")');
 
-    // results
+    // show results of characters
     const button = page.locator('button', { hasText: 'Luke Skywalker' });
     const buttonExists = (await button.count()) > 0;
     expect(buttonExists).toBeTruthy();
 
-    // modal
+    // show details in modal
     await button.click();
-    await page.waitForSelector('text=Height: 1.72m');
-    await page.waitForSelector('text=Gender: male');
-    await page.waitForSelector('text=Name: Tatooine');
-    await page.waitForSelector('text=Population: 200000');
+    const modalText = [
+      'Details',
+      'Height: 1.72m',
+      'Gender: male',
+      'Name: Tatooine',
+      'Population: 200000'
+    ];
+
+    for (const text of modalText) {
+      await page.locator(`text=${text}`).waitFor();
+    }
+
+    // click out modal to close and check if closed
+    await page.locator('body').click({ position: { x: 10, y: 10 } });
+    await expect(page.locator('div.MuiDialog-container')).toBeHidden();
+    await expect(page.locator('text=Height: 172m')).toBeHidden();
+
+    // change pagination
+    await page.click('button[aria-label="Go to page 9"]');
+    await page.locator(`text=Tion Medon`).waitFor();
+
+    //
   });
 });
