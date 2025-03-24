@@ -10,9 +10,9 @@ using `ASDF`:
 - `pnpm install` to install the dependencies
 
 # Commands
-- To run project: `npm run dev`
-- To run tests(unit): `npm run test`
-- To run tests(E2E): `npm run test:e2e`. to ruin with `ui` `npm run test:e2e:ui`
+- To run project: `pnpm run dev`
+- To run tests(unit): `pnpm run test`
+- To run tests(E2E): `pnpm run test:e2e`. to ruin with `ui` `npm run test:e2e:ui`
 
 
 ---
