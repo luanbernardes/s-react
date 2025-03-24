@@ -15,7 +15,7 @@ import {
   Paper
 } from '@mui/material';
 import DetailPage from './detail/Detail.page';
-import { People } from '@/types/swapi';
+import { People } from '@/@types/swapi';
 
 const HomePage = () => {
   const [filterPagination, setFilterPagination] = useState(1);

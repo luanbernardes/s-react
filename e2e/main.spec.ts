@@ -39,6 +39,7 @@ test.describe('Home Page', () => {
     await page.click('button[aria-label="Go to page 9"]');
     await page.locator(`text=Tion Medon`).waitFor();
 
-    //
+    // search for a character, needs filter and go to page 1
+    await page.fill('input[name="filterCharacterName"]', 'Luke');
   });
 });

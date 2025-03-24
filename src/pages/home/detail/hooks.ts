@@ -1,6 +1,7 @@
 import { useState, useEffect, useTransition } from 'react';
-import { GetImageResponse, StarWarsService } from '@/services/star-wars';
-import { Homeworld } from '@/types/start-wars';
+import { starWarsService } from '@/services';
+import { GetImageResponse } from '@/services/star-wars';
+import { Homeworld } from '@/@types/start-wars';
 
 export const useDetail = (peopleName?: string, homeworldUrl?: string) => {
   const [dataImage, setDataImage] = useState<GetImageResponse>();
@@ -11,7 +12,6 @@ export const useDetail = (peopleName?: string, homeworldUrl?: string) => {
   useEffect(() => {
     startTransition(async () => {
       try {
-        const starWarsService = new StarWarsService();
         const [response, responseHomeworld] = await Promise.all([
           peopleName ? starWarsService.getImage(peopleName) : Promise.resolve(undefined),
           homeworldUrl ? starWarsService.getHomeworld(homeworldUrl) : Promise.resolve(undefined)

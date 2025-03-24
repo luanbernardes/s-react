@@ -1,6 +1,5 @@
-import { AxiosHttpClient } from '@/infra/http/axios-http-client';
-import { HttpRequest, HttpResponse } from '@/data/protocols/http';
-import { People } from '@/types/swapi';
+import { HttpClient, HttpRequest, HttpResponse } from '@/data/protocols/http';
+import { People } from '@/@types/swapi';
 
 const baseUrl = import.meta.env.VITE_SWAPI_API_URL;
 
@@ -23,11 +22,10 @@ export interface GetAllResponse {
 }
 
 export class SwapiService {
-  private httpClient: AxiosHttpClient;
+  private httpClient: HttpClient;
 
-  // TODO - remove from here
-  constructor() {
-    this.httpClient = new AxiosHttpClient();
+  constructor(httpClient: HttpClient) {
+    this.httpClient = httpClient;
   }
 
   async getPeople(pagination?: number, search?: string): Promise<HttpResponse<GetPeopleResponse>> {

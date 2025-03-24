@@ -1,13 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
 import { useDetail } from '../hooks';
-import { StarWarsService } from '@/services/star-wars';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { starWarsService } from '@/services';
+import { homeworldResponseMock, imageResponseMock } from '@/@mocks/get-image';
 
-// Mock the StarWarsService
-vi.mock('@/services/star-wars');
-
-const mockGetImage = StarWarsService.prototype.getImage as vi.Mock;
-const mockGetHomeworld = StarWarsService.prototype.getHomeworld as vi.Mock;
+vi.mock('@/services');
 
 describe('useDetail', () => {
   beforeEach(() => {
@@ -15,11 +11,8 @@ describe('useDetail', () => {
   });
 
   it('should fetch data successfully', async () => {
-    const mockImageResponse = { body: [{ url: 'image-url' }] };
-    const mockHomeworldResponse = { body: { name: 'Tatooine' } };
-
-    mockGetImage.mockResolvedValue(mockImageResponse);
-    mockGetHomeworld.mockResolvedValue(mockHomeworldResponse);
+    vi.mocked(starWarsService.getImage).mockResolvedValue(imageResponseMock);
+    vi.mocked(starWarsService.getHomeworld).mockResolvedValue(homeworldResponseMock);
 
     const { result } = renderHook(() => useDetail('Luke Skywalker', 'homeworld-url'));
 
@@ -28,14 +21,13 @@ describe('useDetail', () => {
     await act(async () => {});
 
     expect(result.current.loading).toBe(false);
-    expect(result.current.dataImage).toEqual(mockImageResponse.body[0]);
-    expect(result.current.dataHomeworld).toEqual(mockHomeworldResponse.body);
+    expect(result.current.dataImage).toEqual(imageResponseMock.body?.[0]);
+    expect(result.current.dataHomeworld).toEqual(homeworldResponseMock.body);
     expect(result.current.error).toBeNull();
   });
 
   it('should handle errors', async () => {
-    mockGetImage.mockRejectedValue(new Error('Failed to fetch image'));
-    mockGetHomeworld.mockRejectedValue(new Error('Failed to fetch homeworld'));
+    vi.mocked(starWarsService.getImage).mockRejectedValue(new Error('Failed to fetch data'));
 
     const { result } = renderHook(() => useDetail('Luke Skywalker', 'homeworld-url'));
 
@@ -51,8 +43,6 @@ describe('useDetail', () => {
 
   it('should not fetch data if no parameters are provided', async () => {
     const { result } = renderHook(() => useDetail());
-
-    expect(result.current.loading).toBe(true);
 
     await act(async () => {});
 

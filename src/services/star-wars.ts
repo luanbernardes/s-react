@@ -1,6 +1,5 @@
-import { AxiosHttpClient } from '@/infra/http/axios-http-client';
-import { HttpRequest, HttpResponse } from '@/data/protocols/http';
-import { Homeworld } from '@/types/start-wars';
+import { HttpClient, HttpRequest, HttpResponse } from '@/data/protocols/http';
+import { Homeworld } from '@/@types/start-wars';
 
 const baseUrl = import.meta.env.VITE_STAR_WARS_IMAGE_API_URL;
 
@@ -13,11 +12,10 @@ export interface GetImageResponse {
 }
 
 export class StarWarsService {
-  private httpClient: AxiosHttpClient;
+  private httpClient: HttpClient;
 
-  // TODO - remove from here
-  constructor() {
-    this.httpClient = new AxiosHttpClient();
+  constructor(httpClient: HttpClient) {
+    this.httpClient = httpClient;
   }
 
   async getImage(startWarsName: string): Promise<HttpResponse<GetImageResponse[]>> {

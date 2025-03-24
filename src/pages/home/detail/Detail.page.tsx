@@ -2,7 +2,7 @@ import { Box, CardMedia, Dialog, DialogContent, DialogTitle, Skeleton } from '@m
 import Typography from '@mui/material/Typography';
 import { useDetail } from './hooks';
 import { LoadingComponent } from './Loading.component';
-import { People } from '@/types/swapi';
+import { People } from '@/@types/swapi';
 
 type DetailPageProps = {
   people?: People;
