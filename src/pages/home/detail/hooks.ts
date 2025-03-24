@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import { GetImageResponse, StarWarsService } from '@/services/star-wars';
 import { Homeworld } from '@/types/start-wars';
 
 export const useDetail = (peopleName?: string, homeworldUrl?: string) => {
   const [dataImage, setDataImage] = useState<GetImageResponse>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [dataHomeworld, setDataHomeworld] = useState<Homeworld>();
 
   useEffect(() => {
-    const fetchData = async () => {
-      setError(null);
+    startTransition(async () => {
       try {
         const starWarsService = new StarWarsService();
         const [response, responseHomeworld] = await Promise.all([
@@ -22,12 +21,8 @@ export const useDetail = (peopleName?: string, homeworldUrl?: string) => {
         setDataHomeworld(responseHomeworld?.body);
       } catch {
         setError('Failed to fetch data');
-      } finally {
-        setLoading(false);
       }
-    };
-
-    fetchData();
+    });
   }, [peopleName, homeworldUrl]);
 
   return {
