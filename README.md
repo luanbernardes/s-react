@@ -3,6 +3,7 @@
 ## With Docker
 - `docker compose build`
 - `docker compose up` to run the project
+- The project url: `http://localhost:3000` 
 
 ## With ASDF
 using `ASDF`:
